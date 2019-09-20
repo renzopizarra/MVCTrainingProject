@@ -1,0 +1,43 @@
+﻿@if (Session["Email"] == null)
+{
+
+    <ul class="nav navbar-nav navbar-right navbar-light bg-light">
+        @*<li class="nav-item">
+            <a class="nav-link" href="~/Views/Authentication/Registration">
+                <span class="glyphicon glyphicon-user">
+                    </span>Register</a></li>*@
+        <li class="nav-item">
+            @Html.ActionLink("Register", "Registration", new { controller = "Authentication" }, new { @class = "nav-link" })
+        </li>
+        <li class="nav-item">
+            @Html.ActionLink("Login", "Login", new { controller = "Authentication" }, new { @class = "nav-link" })
+        </li>
+    </ul>
+
+
+}
+else
+{
+
+    <ul class="nav navbar-nav navbar-right navbar-light bg-light">
+        <li class="nav-item">
+            @Html.ActionLink("" + Session["Email"] + "", "Index", new { controller = "Employee" }, new { @class = "nav-link" })
+           
+        </li>
+        <li class="nav-item">
+            @*@Html.ActionLink("Login", "Login", "Authentication", new { @class = "nav-link" })*@
+
+            @if (Request.IsAuthenticated)
+            {
+                using (Html.BeginForm("Logout", "Authentication", FormMethod.Post, new { id = "logoutForm" }))
+                {
+
+                    <button class="btn nav-link">Logout</button>
+                    @*<a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>*@
+                }
+
+            }
+        </li>
+    </ul>
+
+}
